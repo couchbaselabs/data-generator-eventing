@@ -1,0 +1,45 @@
+[
+    {
+        "appcode": "function OnUpdate(doc, meta) {\n    \n    var count = doc.count || 1;   \n    \n    for (let i = 0; i < count; i++) {\n        \n        meta.id = generateUUID();\n     \n        doc[\"count\"] = count;\n     \n        gen[meta.id] = doc;\n        //    log(\"to Gen : \", command);\n\n    }\n  \n}\n\nfunction generateUUID() {\n  // Generate a random number\n  var d = new Date().getTime();\n  if (typeof performance !== 'undefined' && typeof performance.now === 'function'){\n      d += performance.now(); // use high-precision timer if available\n  }\n  \n  // Format the UUID\n  var uuid = 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function(c) {\n    var r = (d + Math.random() * 16) % 16 | 0;\n    d = Math.floor(d / 16);\n    return (c === 'x' ? r : (r & 0x3 | 0x8)).toString(16);\n  });\n\n  return uuid;\n}",
+        "depcfg": {
+            "buckets": [
+                {
+                    "alias": "gen",
+                    "bucket_name": "gen",
+                    "scope_name": "_default",
+                    "collection_name": "_default",
+                    "access": "rw"
+                }
+            ],
+            "source_bucket": "start",
+            "source_scope": "_default",
+            "source_collection": "_default",
+            "metadata_bucket": "meta",
+            "metadata_scope": "_default",
+            "metadata_collection": "_default"
+        },
+        "version": "",
+        "enforce_schema": false,
+        "handleruuid": 1592662280,
+        "function_instance_id": "8&M4y2",
+        "appname": "start",
+        "settings": {
+            "dcp_stream_boundary": "from_now",
+            "deadline_timeout": 62,
+            "deployment_status": true,
+            "description": "",
+            "execution_timeout": 60,
+            "language_compatibility": "6.6.2",
+            "log_level": "INFO",
+            "n1ql_consistency": "none",
+            "processing_status": true,
+            "timer_context_size": 1024,
+            "user_prefix": "eventing",
+            "worker_count": 1
+        },
+        "function_scope": {
+            "bucket": "*",
+            "scope": "*"
+        }
+    }
+]

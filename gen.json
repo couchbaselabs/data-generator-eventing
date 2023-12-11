@@ -1,0 +1,45 @@
+[
+    {
+        "appcode": "function OnUpdate(doc, meta) {\n\tfor (let i = 0; i < doc.count; i++) {\t  \n      \n        var newdoc = generateRandomAirline();\n        meta.id = generateUUID();\n        tgt[meta.id]=newdoc;\n    \n    }\n    \n}\n\nfunction generateRandomAirline() {\n  const airlines = [\n    \"AirWings International\",\n    \"SkyLink Airlines\",\n    \"Global Airways\",\n    \"FlyWorld\",\n    \"AeroJet\",\n    \"StarFlights\",\n    \"Air Connect\",\n    \"Horizon Airlines\",\n    \"AeroExpress\",\n    \"JetStream\"\n  ];\n\n  const getRandomValue = (array) => array[Math.floor(Math.random() * array.length)];\n\n  const airline = getRandomValue(airlines);\n\n  const iataCode = airline.substr(0, 3).toUpperCase();\n  const icaoCode = airline.substr(0, 4).toUpperCase();\n  const foundingYear = Math.floor(Math.random() * 50) + 1970;\n\n  const fleet = [\n    { aircraft_type: \"Boeing 737-800\", total_count: Math.floor(Math.random() * 20) },\n    { aircraft_type: \"Airbus A320\", total_count: Math.floor(Math.random() * 15) },\n    { aircraft_type: \"Boeing 777-300ER\", total_count: Math.floor(Math.random() * 10) }\n  ];\n\n  const destinations = [\n    { name: \"New York\", country: \"United States\", airport_code: \"JFK\" },\n    { name: \"London\", country: \"United Kingdom\", airport_code: \"LHR\" },\n    { name: \"Tokyo\", country: \"Japan\", airport_code: \"NRT\" },\n    { name: \"Sydney\", country: \"Australia\", airport_code: \"SYD\" }\n  ];\n\n  const partners = [\n    { name: getRandomValue(airlines), code_share: airline.substr(0, 3).toUpperCase() },\n    { name: getRandomValue(airlines), code_share: airline.substr(0, 3).toUpperCase() }\n  ];\n\n  return {\n    airline,\n    iata_code: iataCode,\n    icao_code: icaoCode,\n    founding_year: foundingYear,\n    fleet,\n    destinations,\n    partners\n  };\n}\n\nfunction generateUUID() {\n  // Generate a random number\n  var d = new Date().getTime();\n  if (typeof performance !== 'undefined' && typeof performance.now === 'function'){\n      d += performance.now(); // use high-precision timer if available\n  }\n  \n  // Format the UUID\n  var uuid = 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function(c) {\n    var r = (d + Math.random() * 16) % 16 | 0;\n    d = Math.floor(d / 16);\n    return (c === 'x' ? r : (r & 0x3 | 0x8)).toString(16);\n  });\n\n  return uuid;\n}",
+        "depcfg": {
+            "buckets": [
+                {
+                    "alias": "tgt",
+                    "bucket_name": "data",
+                    "scope_name": "_default",
+                    "collection_name": "_default",
+                    "access": "rw"
+                }
+            ],
+            "source_bucket": "gen",
+            "source_scope": "_default",
+            "source_collection": "_default",
+            "metadata_bucket": "meta",
+            "metadata_scope": "_default",
+            "metadata_collection": "_default"
+        },
+        "version": "",
+        "enforce_schema": false,
+        "handleruuid": 2909812414,
+        "function_instance_id": "TDqQ91",
+        "appname": "gen",
+        "settings": {
+            "dcp_stream_boundary": "from_now",
+            "deadline_timeout": 62,
+            "deployment_status": true,
+            "description": "",
+            "execution_timeout": 60,
+            "language_compatibility": "6.6.2",
+            "log_level": "INFO",
+            "n1ql_consistency": "none",
+            "processing_status": true,
+            "timer_context_size": 1024,
+            "user_prefix": "eventing",
+            "worker_count": 64
+        },
+        "function_scope": {
+            "bucket": "*",
+            "scope": "*"
+        }
+    }
+]
